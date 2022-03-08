@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PercentageOfAlignedColumnsScore.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../../../../../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../../../../../logo.png'/>
+  <script type='text/javascript' src='../../../../../coverage.js'></script>
+  <script type='text/javascript' src='../../../../../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>jMetalMSA-master\src\main\java\org\uma\jmetalmsa\score\impl\PercentageOfAlignedColumnsScore.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package org.uma.jmetalmsa.score.impl;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import org.uma.jmetalmsa.problem.DynamicallyComposedProblem;
+import org.uma.jmetalmsa.solution.MSASolution;
+import org.uma.jmetalmsa.score.Score;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>/**
+ * @author Antonio J. Nebro &lt;antonio@lcc.uma.es>
+ */</div><span>/*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>10</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l10s0'>public class PercentageOfAlignedColumnsScore implements Score {</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#startup: 30</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>11</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>12</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public &lt;S extends MSASolution> double compute(S solution,char [][]decodedSequences) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/9</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l33s0 l34s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l28s0 l30s0 l33s0 l34s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l28s0 l30s0 l30s1 l33s0 l34s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l30s0 l33s0 l34s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l30s0 l30s1 l33s0 l34s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l23s0 l28s0 l30s0 l33s0 l34s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l23s0 l28s0 l30s0 l30s1 l33s0 l34s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l23s0 l24s0 l30s0 l33s0 l34s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l13s0 l18s0 l19s0 l21s0 l22s0 l23s0 l24s0 l30s0 l30s1 l33s0 l34s0')">I: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>13</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l13s0'>    int numberOfAlignedColumns = 0;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>14</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l14s0'>    int numberOfColumns = decodedSequences[0].length;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>15</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    char firstResidue;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>16</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>17</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    Boolean isAligned;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>18</td><td class='count'>6</td>
+      <td><pre class='prettyprint jmp'>    <span id='l18s0' title='Executions: 6' class='covered cp' onclick='showHide(this,0)'>for (int i = 0</span>; i &lt; numberOfColumns; i++) {</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x6</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>19</td><td class='count'>5</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l19s0'>        isAligned = true;   </pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x5</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>20</td><td class='count'>5</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l20s0'>        firstResidue = decodedSequences[0][i];</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x5</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>21</td><td class='count'>5</td>
+      <td><pre class='prettyprint jmp'>        <span id='l21s0' title='Executions: 5' class='covered cp' onclick='showHide(this,0)'>if (!solution.isGap(firstResidue))</span> {</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x5</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>22</td><td class='count'>9</td>
+      <td><pre class='prettyprint jmp'>                <span id='l22s0' title='Executions: 9' class='covered cp' onclick='showHide(this,0)'>for(j=1</span>;j&lt; decodedSequences.length;j++){</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x9</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>23</td><td class='count'>8</td>
+      <td><pre class='prettyprint jmp'>                    <span id='l23s0' title='Executions: 8' class='covered cp' onclick='showHide(this,0)'>if (firstResidue != decodedSequences[j][i])</span> {</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x8</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>24</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l24s0'>                        isAligned = false;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x4</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td class='count'>4</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l25s0'>                        break;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x4</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>26</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>                    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>27</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>                }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l28s0'>        }else isAligned = false;</pre>
+        <ol style='display:none'></ol>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>30</td><td class='count'>5</td>
+      <td><pre class='prettyprint jmp'>        <span id='l30s0' title='Executions: 5' class='covered cp' onclick='showHide(this,0)'>if (isAligned)</span> <span id='l30s1' title='Executions: 1' class='covered cp' onclick='showHide(this,1)'>numberOfAlignedColumns++;</span></pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47x5</li>
+        </ol>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>31</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>33</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l33s0'>    double result = 100.0 * numberOfAlignedColumns / numberOfColumns;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>34</td><td class='count'>1</td>
+      <td><pre class='prettyprint covered cp' onclick='showHide(this)' id='l34s0'>    return result;</pre>
+        <ol style='display:none'>
+          <li>org.uma.jmetalmsa.objective.impl.PercentageOfAlignedColumnsObjectiveTest#shouldComputeReturnTheCorrectValueWhenTheSequenceOnlyHasOneAlignedColumn: 47</li>
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>35</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>38</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public boolean isAMinimizationScore() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>39</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l39s0'>    return false;</pre>
+        <ol style='display:none'></ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>40</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>42</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>43</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public String getName() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l44s0'>    return "TC";</pre>
+        <ol style='display:none'></ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>45</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>47</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public String getDescription() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>49</td><td class='count'>0</td>
+      <td><pre class='prettyprint uncovered' id='l49s0'>    return "Percentage of aligned columns in a multiple sequence";</pre>
+        <ol style='display:none'></ol>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>50</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>

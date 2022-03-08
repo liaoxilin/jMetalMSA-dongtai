@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MSASolution.java</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+  <link rel='stylesheet' type='text/css' href='../../../../coverage.css'/>
+  <link rel='shortcut icon' type='image/png' href='../../../../logo.png'/>
+  <script type='text/javascript' src='../../../../coverage.js'></script>
+  <script type='text/javascript' src='../../../../prettify.js'></script>
+</head>
+<body onload='prettyPrint()'>
+  <table cellpadding='0' cellspacing='1'>
+    <caption>jMetalMSA-master\src\main\java\org\uma\jmetalmsa\solution\MSASolution.java</caption>
+    <tr>
+      <td class='line'>1</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>package org.uma.jmetalmsa.solution;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td><pre class='imports prettyprint' onclick='showHideLines(this)'><div>import org.biojava.nbio.core.sequence.ProteinSequence;
+import org.biojava.nbio.core.sequence.io.FastaWriterHelper;
+import org.uma.jmetal.solution.impl.AbstractGenericSolution;
+import org.uma.jmetalmsa.problem.MSAProblem;
+import org.uma.jmetalmsa.solution.util.ArrayChar;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+</div><span>import ...</span></pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>14</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>public class MSASolution extends AbstractGenericSolution&lt;List&lt;Integer>, MSAProblem> {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>16</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public static final char GAP_IDENTIFIER = '-';</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>18</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  List&lt;Integer> <span class='instance uncovered' title='Reads: 0 Writes: 0'>sizeOriginalSequences</span>;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>20</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  private char[][] <span class='instance uncovered' title='Reads: 0 Writes: 0'>decodedSolution</span> ;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Constructor
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>25</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSASolution(MSAProblem problem) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>26</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    super(problem);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>27</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setAttributesSeqName(problem.getListOfSequenceNames());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>28</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setSizeOfOriginalSequences(problem.originalSequences);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>29</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    decodedSolution = null ;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>30</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>32</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSASolution(List&lt;ArrayChar> AlignedSeqs, MSAProblem problem) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>33</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    super(problem);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>35</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setAttributesSeqName(problem.getListOfSequenceNames());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>36</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setSizeOfOriginalSequences(problem.originalSequences);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>37</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    encode(AlignedSeqs);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>38</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Constructor
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>43</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSASolution(MSAProblem problem, List&lt;List&lt;Integer>> gapsGroups) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l44s0 l46s0 l50s0 l52s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l44s0 l46s0 l47s0 l50s0 l52s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>44</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    super(problem);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>46</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; problem.getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>47</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      setVariableValue(i, gapsGroups.get(i));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>48</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>50</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setSizeOfOriginalSequences(problem.originalSequences);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>51</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    setAttributesSeqName(problem.getListOfSequenceNames());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>52</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Copy Constructor
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>57</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSASolution(MSASolution solution) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/12</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l69s0 l73s0 l76s0 l79s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l69s0 l73s0 l76s0 l77s0 l79s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l69s0 l70s0 l73s0 l76s0 l79s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l69s0 l70s0 l73s0 l76s0 l77s0 l79s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l66s0 l69s0 l73s0 l76s0 l79s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l66s0 l69s0 l73s0 l76s0 l77s0 l79s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l66s0 l69s0 l70s0 l73s0 l76s0 l79s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l66s0 l69s0 l70s0 l73s0 l76s0 l77s0 l79s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l64s0 l66s0 l69s0 l73s0 l76s0 l79s0')">I: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l64s0 l66s0 l69s0 l73s0 l76s0 l77s0 l79s0')">J: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l64s0 l66s0 l69s0 l70s0 l73s0 l76s0 l79s0')">K: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l58s0 l60s0 l62s0 l63s0 l64s0 l66s0 l69s0 l70s0 l73s0 l76s0 l77s0 l79s0')">L: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>58</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    super(solution.problem);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>60</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>62</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      List&lt;Integer> gapsGroup = new ArrayList();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>63</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (int j = 0; j &lt; solution.getVariableValue(i).size(); j++)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>64</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        gapsGroup.add(solution.getVariableValue(i).get(j));</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>66</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      setVariableValue(i, gapsGroup);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>67</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>69</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; solution.getNumberOfObjectives(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>70</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      setObjective(i, solution.getObjective(i));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>71</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>73</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    attributes = new HashMap(solution.attributes);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>75</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    sizeOriginalSequences = new ArrayList(solution.sizeOriginalSequences.size());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>76</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; solution.sizeOriginalSequences.size(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>77</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      sizeOriginalSequences.add(solution.sizeOriginalSequences.get(i));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>78</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>79</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>81</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void setSizeOfOriginalSequences(List&lt;ArrayChar> originalSequences) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l82s0 l83s0 l85s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l82s0 l83s0 l84s0 l85s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>82</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    sizeOriginalSequences = new ArrayList(originalSequences.size());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>83</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; originalSequences.size(); i++)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>84</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      sizeOriginalSequences.add(originalSequences.get(i).getSize());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>85</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>/*
+  public List&lt;List&lt;Integer>> encode(List&lt;ArrayChar> alignedSequences) {
+    List&lt;List&lt;Integer>> gapsGroups = new ArrayList&lt;>();
+
+    for (int i = 0; i &lt; alignedSequences.size(); i++) {
+      gapsGroups.add(getGapsGroup(alignedSequences.get(i)));
+      setVariableValue(i, gapsGroups.get(i));
+    }
+
+    return gapsGroups;
+  }
+*/</div><span>/*...*/</span></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>101</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void encode(List&lt;ArrayChar> alignedSequences) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l102s0 l105s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l102s0 l103s0 l105s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>102</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; alignedSequences.size(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>103</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      setVariableValue(i, getGapsGroup(alignedSequences.get(i)));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>104</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>105</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>107</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;Integer> getGapsGroup(ArrayChar sequence) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/10</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l127s0 l132s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l127s0 l128s0 l132s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l118s0 l127s0 l132s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l118s0 l127s0 l128s0 l132s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l118s0 l119s0 l127s0 l132s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l118s0 l119s0 l127s0 l128s0 l132s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l113s0 l127s0 l132s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l113s0 l127s0 l128s0 l132s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l113s0 l114s0 l127s0 l132s0')">I: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l108s0 l111s0 l112s0 l113s0 l114s0 l127s0 l128s0 l132s0')">J: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>108</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroups = new ArrayList&lt;>();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>109</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    Boolean GapOpen = false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>110</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int start = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>111</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; sequence.getSize(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>112</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (sequence.charAt(i) == '-') {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>113</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (!GapOpen) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>114</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          GapOpen = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>115</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          start = i;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>116</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>117</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      } else {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>118</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (GapOpen) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>119</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapsGroups.add(start);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>120</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapsGroups.add(i - 1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>121</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          GapOpen = false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>122</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>124</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>125</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>127</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    if (GapOpen) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>128</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapsGroups.add(start);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>129</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapsGroups.add(sequence.getSize() - 1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>130</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>132</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return gapsGroups;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>133</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>135</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;ArrayChar> decode() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>136</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return decode(getOriginalSequences());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>137</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>139</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;ArrayChar> decode(List&lt;ArrayChar> originalSeqs) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l140s0 l142s0 l146s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l140s0 l142s0 l143s0 l146s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>140</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;ArrayChar> alignedSequences = new ArrayList&lt;ArrayChar>();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>142</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>143</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      alignedSequences.add(decode(originalSeqs.get(i).getCharArray(), getVariableValue(i), getAlignmentLength(i)));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>144</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>146</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return alignedSequences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>147</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>149</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public ArrayChar decode(char[] OriginalSeq, List&lt;Integer> gapsGroups, int size) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/9</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l157s0 l158s0 l162s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l157s0 l158s0 l159s0 l162s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l157s0 l158s0 l159s0 l159s1 l162s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l157s0 l158s0 l162s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l157s0 l158s0 l159s0 l162s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l157s0 l158s0 l159s0 l159s1 l162s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l154s1 l157s0 l158s0 l162s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l154s1 l157s0 l158s0 l159s0 l162s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l150s0 l153s0 l154s0 l154s1 l157s0 l158s0 l159s0 l159s1 l162s0')">I: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>150</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    char[] alignedSequence = new char[size];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>151</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j, l, p;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>153</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>154</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (l = gapsGroups.get(j); l &lt;= gapsGroups.get(j + 1); l++) alignedSequence[l] = '-';</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>155</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>157</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    p = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>158</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; size; j++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>159</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (alignedSequence[j] != '-') alignedSequence[j] = OriginalSeq[p++];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>160</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>162</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return new ArrayChar(alignedSequence);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>163</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>165</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public char[][] decodeToMatrix() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>166</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      return  decodeToMatrix(getOriginalSequences()) ;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>167</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>169</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public char[][] decodeToMatrix(List&lt;ArrayChar> originalSeqs) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l171s0 l173s0 l180s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l171s0 l173s0 l174s0 l180s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>171</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    char[][] alignedSequences = new char[getNumberOfVariables()][];</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>173</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>174</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      alignedSequences[i] = decodeOneSequenceToArray(</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>175</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              originalSeqs.get(i).getCharArray(),</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>176</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              getVariableValue(i),</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>177</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              getAlignmentLength(i));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>178</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>180</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return alignedSequences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>181</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>183</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public char[] decodeOneSequenceToArray(char[] OriginalSeq, List&lt;Integer> gapsGroups, int size) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/9</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l192s0 l193s0 l198s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l192s0 l193s0 l194s0 l198s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l192s0 l193s0 l194s0 l195s0 l198s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l192s0 l193s0 l198s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l192s0 l193s0 l194s0 l198s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l192s0 l193s0 l194s0 l195s0 l198s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l189s0 l192s0 l193s0 l198s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l189s0 l192s0 l193s0 l194s0 l198s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l184s0 l187s0 l188s0 l189s0 l192s0 l193s0 l194s0 l195s0 l198s0')">I: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>184</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    char[] alignedSequence = new char[size];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>185</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j, l, p;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>187</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>188</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (l = gapsGroups.get(j); l &lt;= gapsGroups.get(j + 1); l++)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>189</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        alignedSequence[l] = '-';</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>190</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>192</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    p = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>193</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; size; j++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>194</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (alignedSequence[j] != '-')</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>195</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        alignedSequence[j] = OriginalSeq[p++];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>196</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>198</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return alignedSequence;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>199</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>201</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void mergeGapsGroups() {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/4</span>
+        <span class='uncovered' onclick="showPath(this,'l202s0 l213s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l202s0 l203s0 l213s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l202s0 l203s0 l205s0 l213s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l202s0 l203s0 l205s0 l206s0 l213s0')">D: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>202</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>203</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (int j = 1; j &lt; getVariableValue(i).size() - 2; j += 2) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>205</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (getVariableValue(i).get(j) + 1 == getVariableValue(i).get(j + 1)) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>206</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          getVariableValue(i).set(j, getVariableValue(i).get(j + 2));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>207</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          getVariableValue(i).remove(j + 1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>208</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          getVariableValue(i).remove(j + 1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>209</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          j -= 2;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>210</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>211</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>212</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>213</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>215</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void removeGapColumns() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>216</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroups;</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/6</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l230s0 l233s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l230s0 l231s0 l233s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l223s0 l225s0 l230s0 l233s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l223s0 l225s0 l230s0 l231s0 l233s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l223s0 l225s0 l226s0 l230s0 l233s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l217s0 l222s0 l223s0 l225s0 l226s0 l230s0 l231s0 l233s0')">F: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>217</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapColumnsIndex = new ArrayList();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>218</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapColumnsIndexGG ;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>219</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j, k;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>221</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    gapsGroups = getVariableValue(0);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>222</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>223</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapColumnsIndexGG = getGapsColumns(1, gapsGroups.get(j), gapsGroups.get(j + 1));</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>225</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (k = 0; k &lt; gapColumnsIndexGG.size(); k++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>226</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        gapColumnsIndex.add(gapColumnsIndexGG.get(k));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>227</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>228</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>230</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapColumnsIndex.size(); j++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>231</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      removeGapColumn(gapColumnsIndex.get(j) - j);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>232</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>233</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>235</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  private List&lt;Integer> getGapsColumns(int varIndex, int RMin, int RMax) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>236</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroups;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>237</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapColumnsIndexGG ;</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/34</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l274s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l274s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l274s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l267s0 l274s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l274s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l274s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l274s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l267s0 l274s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l253s0 l274s0')">I: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l274s0')">J: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l274s0')">K: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l267s0 l274s0')">L: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l274s0')">M: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l274s0')">N: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l274s0')">O: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l267s0 l274s0')">P: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s2 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l253s0 l274s0')">Q: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l274s0')">R: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l274s0')">S: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l267s0 l274s0')">T: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l274s0')">U: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l274s0')">V: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l274s0')">W: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l267s0 l274s0')">X: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s2 l249s3 l251s0 l252s0 l253s0 l274s0')">Y: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l274s0')">Z: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l274s0')">AA: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l266s0 l267s0 l274s0')">AB: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l274s0')">AC: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l274s0')">AD: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l274s0')">AE: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l257s0 l259s0 l260s0 l261s0 l262s0 l266s0 l267s0 l274s0')">AF: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l248s0 l248s1 l248s3 l249s0 l249s1 l249s3 l251s0 l252s0 l253s0 l274s0')">AG: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l238s0 l243s0 l245s0 l246s0 l274s0')">AH: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>238</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapColumnsIndex = new ArrayList();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>239</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j, k, RMinAux, RMaxAux;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>240</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int numberOfVariables = this.getNumberOfVariables();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>242</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    gapsGroups = getVariableValue(varIndex);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>243</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>245</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (RMax &lt; gapsGroups.get(j))</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>246</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        break;</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>248</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      RMinAux = RMin > gapsGroups.get(j) ? RMin : gapsGroups.get(j);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>249</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      RMaxAux = RMax &lt; gapsGroups.get(j + 1) ? RMax : gapsGroups.get(j + 1);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>251</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (RMinAux &lt;= RMaxAux) { //GapsIntersection</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>252</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (varIndex == numberOfVariables - 1) { //last sequence into the GapsRange</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>253</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapColumnsIndex.add(RMinAux);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>254</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapColumnsIndex.add(RMaxAux);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>255</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        } else {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>257</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapColumnsIndexGG = getGapsColumns(varIndex + 1, RMinAux, RMaxAux);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>259</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          if (varIndex == numberOfVariables - 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>260</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            if (gapColumnsIndexGG.size() > 0) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>261</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              for (k = gapColumnsIndexGG.get(0); k &lt;= gapColumnsIndexGG.get(1); k++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>262</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>                gapColumnsIndex.add(k);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>263</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>264</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>265</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          } else {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>266</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            for (k = 0; k &lt; gapColumnsIndexGG.size(); k++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>267</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>              gapColumnsIndex.add(gapColumnsIndexGG.get(k));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>268</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>269</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>270</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>271</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>272</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>274</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return gapColumnsIndex;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>275</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>277</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void removeGapColumn(int index) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>279</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroups;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>280</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int i, j, k;</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/8</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l298s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l298s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l298s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l285s1 l298s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l285s1 l286s0 l289s0 l298s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l285s1 l286s0 l289s0 l290s0 l298s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l285s1 l286s0 l287s0 l289s0 l298s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l281s0 l282s0 l284s0 l285s0 l285s1 l286s0 l287s0 l289s0 l290s0 l298s0')">H: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>281</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (i = 0; i &lt; this.getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>282</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapsGroups = this.getVariableValue(i);</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>284</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>285</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (index >= gapsGroups.get(j) && index &lt;= gapsGroups.get(j + 1)) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>286</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          for (k = j + 1; k &lt; gapsGroups.size(); k++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>287</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            gapsGroups.set(k, gapsGroups.get(k) - 1);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>288</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>289</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          if (gapsGroups.get(j) > gapsGroups.get(j + 1)) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>290</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            gapsGroups.remove(j);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>291</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            gapsGroups.remove(j);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>292</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>294</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          break;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>295</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>296</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>297</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>298</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>300</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public boolean isGapColumn(int index) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>301</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroups;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>302</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    boolean gapColumn;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>303</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int i, j;</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/9</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l314s0 l315s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l314s0 l315s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l308s1 l314s0 l315s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l308s1 l309s0 l314s0 l315s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l318s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l314s0 l318s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l314s0 l318s0')">G: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l308s1 l314s0 l318s0')">H: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l304s0 l305s0 l307s0 l308s0 l308s1 l309s0 l314s0 l318s0')">I: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>304</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>305</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapsGroups = getVariableValue(i);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>306</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      gapColumn = false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>307</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (j = 0; j &lt; gapsGroups.size() - 1; j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>308</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (index >= gapsGroups.get(j) && index &lt;= gapsGroups.get(j + 1)) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>309</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          gapColumn = true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>310</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          break;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>311</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>312</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>314</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (!gapColumn) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>315</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        return false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>316</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>317</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>318</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>319</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>321</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>322</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public String getVariableValueString(int i) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>324</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    String Sequence;</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l326s0 l329s0 l332s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l326s0 l329s0 l330s0 l332s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>326</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    Sequence = ">" + getAttribute("SeqName" + i).toString() + "\n" +</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>327</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>            decode(getOriginalSequences().get(i).getCharArray(), getVariableValue(i), getAlignmentLength(i)).toString();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>329</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    if (i >= this.getNumberOfVariables() - 1)</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>330</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      Sequence += "\n";</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>332</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return Sequence;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>333</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>335</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;Integer> getVariableListInteger(int i) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>336</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return getVariableValue(i);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>337</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>339</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;ArrayChar> getOriginalSequences() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>340</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return this.problem.originalSequences;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>341</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>343</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSAProblem getMSAProblem() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>344</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return this.problem;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>345</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>347</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public boolean isValid() {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/3</span>
+        <span class='uncovered' onclick="showPath(this,'l348s0 l349s0 l350s0 l352s0 l354s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l348s0 l349s0 l359s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l348s0 l349s0 l350s0 l359s0')">C: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>348</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int sizeAlignment = getAlignmentLength();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>349</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int k = 1; k &lt; getNumberOfVariables(); k++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>350</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (sizeAlignment != getOriginalSequences().get(k).getSize() + getNumberOfGaps(k)) {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>352</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        System.out.println("Error Solution, " + k + " sequence has a wrong Length (OSeqLenghth: " + getOriginalSequences().get(k).getSize() +</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>353</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>                ") + NumOfGaps: " + getNumberOfGaps(k) + " is not equal to Size: " + sizeAlignment);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>354</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        return false;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>355</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>357</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>359</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return true;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>360</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>362</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>363</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public MSASolution copy() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>364</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return new MSASolution(this);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>365</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /*
+   * Returns the number of gaps of a sequence
+   * @param index
+   * @return
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>372</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public int getNumberOfGaps() {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l374s0 l376s0 l379s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l374s0 l376s0 l377s0 l379s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>374</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int numberOfGaps = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>375</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int i;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>376</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (i = 0; i &lt; this.getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>377</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      numberOfGaps += getNumberOfGaps(i);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>378</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>379</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return numberOfGaps;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>380</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>382</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public int getNumberOfGaps(Integer index) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l384s0 l387s0 l390s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l384s0 l387s0 l388s0 l390s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>384</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int numberOfGaps = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>385</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    int j;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>386</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;Integer> gapsGroup = this.getVariableValue(index);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>387</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (j = 0; j &lt; gapsGroup.size(); j += 2) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>388</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      numberOfGaps += gapsGroup.get(j + 1) - gapsGroup.get(j) + 1;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>389</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>390</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return numberOfGaps;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>391</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Set The Attributes with  the sequence name list
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>397</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void setAttributesSeqName(List&lt;StringBuilder> SeqNames) {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/3</span>
+        <span class='uncovered' onclick="showPath(this,'l399s0 l405s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l399s0 l400s0 l403s0 l405s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l399s0 l400s0 l401s0 l405s0')">C: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>399</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>400</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (i &lt; SeqNames.size())</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>401</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        this.setAttribute("SeqName" + i, SeqNames.get(i).toString());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>402</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      else</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>403</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        this.setAttribute("SeqName" + i, "");</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>404</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>405</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>407</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  @Override</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>408</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public String toString() {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/7</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l429s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l424s0 l429s0')">B: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l424s0 l425s0 l429s0')">C: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l416s0 l418s0 l424s0 l429s0')">D: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l416s0 l418s0 l424s0 l425s0 l429s0')">E: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l416s0 l418s0 l419s0 l424s0 l429s0')">F: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l409s0 l412s0 l413s0 l415s0 l416s0 l418s0 l419s0 l424s0 l425s0 l429s0')">G: 0</span>
+      </td>
+    </tr>
+    <tr>
+      <td class='line'>409</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    char[][] sequences = decodeToMatrix();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>410</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    String alignment = "";</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>412</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>413</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      alignment += ">" + getAttribute("SeqName" + i).toString() + "\n";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>414</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      int compoundCount = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>415</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      for (int j = 0; j &lt; sequences[i].length; j++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>416</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        alignment += sequences[i][j];</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>417</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        compoundCount++;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>418</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        if (compoundCount == 60) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>419</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          alignment += "\n";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>420</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>          compoundCount = 0;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>421</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>422</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>424</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      if (sequences[i].length % 60 != 0) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>425</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>        alignment += "\n";</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>426</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>427</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>429</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return alignment;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>430</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Write the MultipleSequenceAlignmentSolution in Fasta format
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>435</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public void printSolutionToFasta(String fileName) throws Exception {</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>437</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;ProteinSequence> proteinSequenceList = convertSolutionToProteinSequenceList();</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>438</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    FastaWriterHelper.writeProteinSequence(new File(fileName), proteinSequenceList);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>439</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'></td><td>&nbsp;</td>
+      <td class='comment' onclick='showHideLines(this)'><div>  /**
+   * Create a Protein sequence list from the sequences stored in the variables
+   */</div><span>  /*...*/</span></td>
+    </tr>
+    <tr>
+      <td class='line'>444</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public List&lt;ProteinSequence> convertSolutionToProteinSequenceList() throws Exception {</pre></td>
+    </tr>
+    <tr>
+      <td></td><td class='count'>0</td>
+      <td class='paths'>
+        <span style='cursor:default; background-color:#ff0000' onclick='hidePath()'>Path coverage: 0/2</span>
+        <span class='uncovered' onclick="showPath(this,'l446s0 l449s0 l454s0')">A: 0</span>
+        <span class='uncovered' onclick="showPath(this,'l446s0 l449s0 l450s0 l454s0')">B: 0</span>
+      </td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>446</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;ProteinSequence> proteinSequenceList = new ArrayList&lt;>(getNumberOfVariables());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>447</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    List&lt;ArrayChar> Seqs = decode();</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>449</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    for (int i = 0; i &lt; getNumberOfVariables(); i++) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>450</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      proteinSequenceList.add(new ProteinSequence(Seqs.get(i).toString()));</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>451</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>      proteinSequenceList.get(i).setOriginalHeader(getAttribute("SeqName" + i).toString());</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>452</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>454</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return proteinSequenceList;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>455</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>458</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public int getAlignmentLength(int varIndex) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>459</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return sizeOriginalSequences.get(varIndex) + getNumberOfGaps(varIndex);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>460</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr><td class='line'></td><td colspan='2'>&nbsp;</td></tr>
+    <tr>
+      <td class='line'>462</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public int getAlignmentLength() {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>463</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return sizeOriginalSequences.get(0) + getNumberOfGaps(0);</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>464</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>465</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  public boolean isGap(char symbol) {</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>466</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>    return symbol == GAP_IDENTIFIER;</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>467</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>  }</pre></td>
+    </tr>
+    <tr>
+      <td class='line'>468</td><td>&nbsp;</td>
+      <td><pre class='prettyprint'>}</pre></td>
+    </tr>
+  </table>
+</body>
+</html>
